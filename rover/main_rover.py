@@ -9,7 +9,7 @@ import sub_process
 
 motor = motor.Motor(pwm_pin=10, stby_pin=7, in1_pin=11, in2_pin=9)
 camera = cam.Camera()
-ServoLeveling = leveling.SelfLeveling()
+servoLeveling = leveling.SelfLeveling()
 stepper = stepper.Stepper()
 mpu = mpu.MPU()
 sub = sub_process.Subprocess()
@@ -71,6 +71,9 @@ def startOnceUpright():
     callCommands(sent_commands)
 
 def startOnceLanded(forward: bool):
+    tresh1 = 0
+    tresh2 = 0
+    az = mpu.mpu.get_accel_data().get("z")
     if forward:
         motor.motorForward()
     else:
@@ -78,8 +81,10 @@ def startOnceLanded(forward: bool):
     time.sleep(20)
     motor.motorStop()
     time.sleep(1)
-    ServoLeveling.set_straight()
+    servoLeveling.set_straight()
     #add any other code to set straight
+    while servoLeveling.leveled == False:
+        servoLeveling.level(az,tresh1,tresh2)
     time.sleep(1)
     GPIO.cleanup()
     startOnceUpright()

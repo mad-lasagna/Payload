@@ -28,17 +28,17 @@ class SelfLeveling():
         self.p2.start(0)
         
     
-    def level(self,pitch):
-        if pitch <= 0 and pitch >= -1.3:
+    def level(self,pitch, tresh1, tresh2):
+        if pitch <= tresh1 and pitch >= tresh2:
             self.p1.start(0) # Reduces jitter, must have a time.sleep 
             self.p2.start(0)
             self.leveled = True
         
-        elif pitch > 0:
+        elif pitch > tresh1:
             self.rightLegAngle += 1
             self.p1.ChangeDutyCycle(self.get_pwm(self.rightLegAngle))
        
-        elif pitch < -3:
+        elif pitch < tresh2:
             self.leftLegAngle += 1
             self.p2.ChangeDutyCycle(self.get_pwm(self.leftLegAngle))
 
