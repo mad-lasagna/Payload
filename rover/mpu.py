@@ -21,11 +21,15 @@ class MPU:
         roll = math.atan2(-1 * (aY), aZ) * 180 / math.pi  # rotation on X axis
 
         if abs(roll) > 90 or abs(pitch) > 90:
-            return "Rover is upside down"
+            print("Rover is upside down")
+            return 0
+            
         elif (roll > 0 and pitch < 0) or (roll < 0 and pitch > 0):
-            return "Rover is upside down"
+            print("Rover is upside down")
+            return 0
         else:
-            return "Rover is not upside down"
+            print("Rover is not upside down")
+            return 1
         
     def landingDetection(self):
         while True:
@@ -96,6 +100,8 @@ class MPU:
 
                 # Record one more time for statistics
                 record.record(temp)
+
+                break
 
                 while True:
                     self.buzzer.on()

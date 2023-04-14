@@ -1,16 +1,18 @@
 import time
+import RPi.GPIO as GPIO
 import mpu
-import keyboard
 import dcmotors as motor
 import selfLevelingTest as leveling
 import cam as cam
 import stepper_motor as stepper
+import sub_process
 
 motor = motor.Motor(pwm_pin=10, stby_pin=7, in1_pin=11, in2_pin=9)
 camera = cam.Camera()
 ServoLeveling = leveling.SelfLeveling()
 stepper = stepper.Stepper()
 mpu = mpu.MPU()
+sub = sub_process.Subprocess()
 
 greyscale = False
 flip = False
@@ -23,7 +25,7 @@ filters = False
 # G7—Special effects filter (Apply any filter or image distortion you want and state what filter or distortion was used).
 # H8—Remove all filters.
 commands = ["A1", "B2", "C3", "D4", "E5", "F6", "G7", "H8"]
-
+    
 
 def Commands(command):
     if command == commands[0]:
@@ -46,31 +48,45 @@ def Commands(command):
         filters = False
 
 
-while True:
-    userInput = input("Please enter a command: ")
+def callCommands(sentCommands):
+    for i in sentCommands:
+        Commands(sentCommands[i])
+        time.sleep(2)
 
-    while not keyboard.is_pressed('space'):
+def startOnceUpright():
+    sub.subprocess()
+    EMPTY = True
+    while EMPTY:
+        f = open("output.txt", 'r')
+        lines = f.readlines()
+        found = False
+        for line in lines:
+            if found:
+                x = (line[line.find(".X/'") + 4:line.find("_")])
+                sent_commands = x.split()
+                print(sent_commands)
+            if "KQ4CTL-6" in line:
+                found = True
+                EMPTY = False
+    callCommands(sent_commands)
 
-        if userInput == "1":
+def startOnceLanded(forward: bool):
+    if forward:
+        motor.motorForward()
+    else:
+        motor.motorBackward()
+    time.sleep(20)
+    motor.motorStop()
+    time.sleep(1)
+    ServoLeveling.set_straight()
+    #add any other code to set straight
+    time.sleep(1)
+    GPIO.cleanup()
+    startOnceUpright()
 
-            buzzer.buzzer_on()
+def startFromLounch():
+    mpu.landingDetection()
+    if mpu.LANDED == True:
+        startOnceLanded(mpu.checkTilt)
 
-        elif userInput == "2":
-
-            motor.motorForward()
-
-            time.sleep(3)
-
-           # motor.motorBackward()
-           # motor2.motorBackward()
-            
-            #time.sleep(3)
-            
-            #motor1.stop()
-            #motor2.stop()
-
-        else:
-            print("Invalid command. Please try again.")
-        keyboard.wait()
-
-    break
+    

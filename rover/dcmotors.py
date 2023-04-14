@@ -40,15 +40,15 @@ class Motor:
         self.pi.set_PWM_dutycycle(self.pwmA, 0)  # set motor speed to 0
 
 pwm = 10
-standby = 16
+standby = 7
 
 in1 = 11
 
 in2 = 9
 
-m1 = Motor(pwm, standby, in1, in2)
-
-m = Motor(pwm,standby,in1,in2)
+while True:
+    m = Motor(pwm,standby,in1,in2)
+    m.motorForward()
 
 
 

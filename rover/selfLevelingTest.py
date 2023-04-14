@@ -5,6 +5,9 @@ import math
 
 class SelfLeveling():
     def __init__(self):
+        mpu = self.mpu6050(0x68)
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
         self.rightLegAngle = 0
         self.leftLegAngle = 90
         self.leveled = False
@@ -18,8 +21,8 @@ class SelfLeveling():
         return (angle/18.0) + 2.5
     
     def set_straight(self):
-        self.p1.ChangeDutyCycle(self.get_pwm(90))
-        self.p2.ChangeDutyCycle(self.get_pwm(90))
+        self.p1.ChangeDutyCycle(self.get_pwm(135))
+        self.p2.ChangeDutyCycle(self.get_pwm(135))
         time.sleep(1)
         self.p1.start(0) # Reduces jitter, must have a time.sleep 
         self.p2.start(0)
@@ -39,21 +42,15 @@ class SelfLeveling():
             self.leftLegAngle += 1
             self.p2.ChangeDutyCycle(self.get_pwm(self.leftLegAngle))
 
-mpu = mpu6050(0x68)
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-
-#GPIO.setup(12,GPIO.OUT)
-#GPIO.setup(13,GPIO.OUT)
 
 #in main loop, if mpu data is too far from ideal, then restart the process
 #l = SelfLeveling()
 #l.set_straight()
-while True:
-    ax = mpu.get_accel_data().get("x")
-    ay = mpu.get_accel_data().get("y")
-    az = mpu.get_accel_data().get("z")
-    print(ax,ay,az)
+# while True:
+#     ax = mpu.get_accel_data().get("x")
+#     ay = mpu.get_accel_data().get("y")
+#     az = mpu.get_accel_data().get("z")
+#     print(ax,ay,az)
     #pitch = math.atan2(-ax, az) ignore for now, working with az
     #print(pitch)
     
@@ -62,11 +59,5 @@ while True:
         
 #    if az > 0 or az < -1.3:
 #        l.leveled = False
-    
 
-
-
-   
-
-    
 GPIO.cleanup()
