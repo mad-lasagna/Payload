@@ -38,7 +38,8 @@ class MPU:
 
             accelerometer_data = self.mpu.get_accel_data(g=True)
             gyro_data = self.mpu.get_gyro_data()
-
+            
+            print(accelerometer_data.get('x'), 1)
             if round(accelerometer_data.get('x'), 1) > 7 or round(accelerometer_data.get('x'), 1) < -7:
                 landCheck= True
                 print("Launched")
