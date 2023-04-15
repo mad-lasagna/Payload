@@ -70,12 +70,16 @@ def startOnceUpright():
                 break
             time.sleep(1)
             count += 1
-            if count >= 120:
+            if count >= 15:
                 sent_commands = ["C3", "A1", "D4", "C3", "E5", "A1", "G7", "C3", "H8", "A1", "F6", "C3"]
                 break
             if "KQ4CTL-6" in line:
                 found = True
                 EMPTY = False
+    comandFile = open("comandFile.txt", "w")
+    for item in sent_commands:
+        comandFile.write(item+"\n")
+    comandFile.close()
     callCommands(sent_commands)
 
 def startOnceLanded(forward: bool):
@@ -108,4 +112,8 @@ def startFromLaunch():
 def start():
     startFromLaunch()
 
-start()
+def skipStart():
+    startOnceLanded(1)
+
+#start()
+skipStart()
