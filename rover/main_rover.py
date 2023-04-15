@@ -70,7 +70,7 @@ def startOnceUpright():
                 break
             time.sleep(1)
             count += 1
-            if count >= 15:
+            if count >= 120:
                 sent_commands = ["C3", "A1", "D4", "C3", "E5", "A1", "G7", "C3", "H8", "A1", "F6", "C3"]
                 break
             if "KQ4CTL-6" in line:
@@ -90,7 +90,7 @@ def startOnceLanded(forward: bool):
         motor.motorForward()
     else:
         motor.motorBackward()
-    time.sleep(2)
+    time.sleep(12)
     motor.motorStop()
     time.sleep(1)
     # servoLeveling.set_straight()
@@ -100,7 +100,7 @@ def startOnceLanded(forward: bool):
     #     servoLeveling.level(az,tresh1,tresh2)
     time.sleep(1)
     GPIO.cleanup()
-    #startOnceUpright()
+    startOnceUpright()
 
 def startFromLaunch():
     mpu.landingDetection()

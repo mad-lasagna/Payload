@@ -24,9 +24,9 @@ class MPU:
             print("Rover is upside down")
             return 0
             
-        elif (roll > 0 and pitch < 0) or (roll < 0 and pitch > 0):
-            print("Rover is upside down")
-            return 0
+        #elif (roll > 0 and pitch < 0) or (roll < 0 and pitch > 0):
+        #    print("Rover is upside down")
+        #    return 0
         else:
             print("Rover is not upside down")
             return 1

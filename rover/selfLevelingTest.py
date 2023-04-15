@@ -65,10 +65,10 @@ class SelfLeveling():
 #GPIO.cleanup()
 
 motor.motorForward()
-time.sleep(2)
+time.sleep(1)
 motor.motorStop()
 time.sleep(1)
-s = SelfLeveling()
-s.set_straight(True)
+#s = SelfLeveling()
+#s.set_straight(True)
 
 
