@@ -15,11 +15,11 @@ class Subprocess:
 
         # Wait for the process to finish
         process.wait()
-    def secondSubprocess():
+    def secondSubprocess(self):
         command = "python3 selfLevelingTest.py"
 
         # Run the command and capture the output
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
 
-sub = Subprocess()
-sub.subprocess()
+#sub = Subprocess()
+#sub.subprocess()

@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import time
 import math
 import dcmotors as motor
-motor = motor.Motor(pwm_pin=10, stby_pin=7, in1_pin=11, in2_pin=9)
+#motor = motor.Motor(pwm_pin=10, stby_pin=7, in1_pin=11, in2_pin=9)
 
 class SelfLeveling():
     def __init__(self):
@@ -64,10 +64,10 @@ class SelfLeveling():
 #        l.leveled = False 
 #GPIO.cleanup()
 
-motor.motorForward()
-time.sleep(1)
-motor.motorStop()
-time.sleep(1)
+#motor.motorForward()
+#time.sleep(1)
+#motor.motorStop()
+#time.sleep(1)
 #s = SelfLeveling()
 #s.set_straight(True)
 
