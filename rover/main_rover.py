@@ -79,9 +79,9 @@ def startOnceUpright():
     callCommands(sent_commands)
 
 def startOnceLanded(forward: bool):
-    tresh1 = 0
-    tresh2 = 0
-    az = mpu.mpu.get_accel_data().get("z")
+    # tresh1 = 0
+    # tresh2 = 0
+    # az = mpu.mpu.get_accel_data().get("z")
     if forward:
         motor.motorForward()
     else:
@@ -89,11 +89,11 @@ def startOnceLanded(forward: bool):
     time.sleep(15)
     motor.motorStop()
     time.sleep(1)
-    servoLeveling.set_straight()
+    # servoLeveling.set_straight()
     #add any other code to set straight
-    servoLeveling.level(az,tresh1,tresh2)
-    while servoLeveling.leveled == False:
-        servoLeveling.level(az,tresh1,tresh2)
+    # servoLeveling.level(az,tresh1,tresh2)
+    # while servoLeveling.leveled == False:
+    #     servoLeveling.level(az,tresh1,tresh2)
     time.sleep(1)
     GPIO.cleanup()
     startOnceUpright()
