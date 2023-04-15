@@ -92,6 +92,7 @@ def startOnceLanded(forward: bool):
 def startFromLounch():
     mpu.landingDetection()
     if mpu.LANDED == True:
+        time.sleep(5)
         startOnceLanded(mpu.checkTilt)
 
     

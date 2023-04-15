@@ -39,7 +39,7 @@ class MPU:
             accelerometer_data = self.mpu.get_accel_data(g=True)
             gyro_data = self.mpu.get_gyro_data()
 
-            if round(accelerometer_data.get('x'), 1) > 4 or round(accelerometer_data.get('x'), 1) < -4:
+            if round(accelerometer_data.get('x'), 1) > 7 or round(accelerometer_data.get('x'), 1) < -7:
                 landCheck= True
                 print("Launched")
 
@@ -47,7 +47,7 @@ class MPU:
             prevY = round(accelerometer_data.get('y'), 1)
             prevZ = round(accelerometer_data.get('z'), 1)
 
-            time.sleep(0.05)
+            time.sleep(0.33)
 
             accelerometer_data = self.mpu.get_accel_data(g=True)
             ax = round(accelerometer_data.get('x'), 1)
@@ -70,6 +70,7 @@ class MPU:
                 else:
                     print('Schmooving!')
                     self.LANDED = False
+                    self.landCount = 0
 
             temp = []
             date_str = str(datetime.now())
