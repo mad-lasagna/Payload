@@ -34,10 +34,12 @@ class Stepper:
             time.sleep(self.delay)
 
 # Example usage
-# step_motor(1, 60, 0.001)
-# time.sleep(3)
-# step_motor(0,60, 0.001)
-# time.sleep(1)
-# step_motor(1,360,0.001)
+s = Stepper()
+
+s.step_motor(1, 60, 0.001)
+time.sleep(3)
+s.step_motor(0,60, 0.001)
+time.sleep(1)
+s.step_motor(1,360,0.001)
 # # Clean up the GPIO pins
-# GPIO.cleanup()
+GPIO.cleanup()

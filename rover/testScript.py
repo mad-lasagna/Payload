@@ -14,22 +14,22 @@ stepper = stepper.Stepper()
 mpu = mpu.MPU()
 sub = sub_process.Subprocess()
 
-forward = 1
-if forward:
-    motor.motorForward()
-else:
-    motor.motorBackward()
-time.sleep(5)
+#forward = 1
+#if forward:
+#    motor.motorForward()
+#else:
+#    motor.motorBackward()
+#time.sleep(5)
+#motor.motorStop()
+#tresh1 = 0
+#tresh2 = 0
+#az = mpu.mpu.get_accel_data().get("z")
 
-tresh1 = 0
-tresh2 = 0
-az = mpu.mpu.get_accel_data().get("z")
 
-
-servoLeveling.set_straight()
+#servoLeveling.set_straight()
 #add any other code to set straight
-while servoLeveling.leveled == False:
-    servoLeveling.level(az,tresh1,tresh2)
+#while servoLeveling.leveled == False:
+#    servoLeveling.level(az,tresh1,tresh2)
 time.sleep(1)
 
 commands = ["A1", "B2", "C3", "D4", "E5", "F6", "G7", "H8"]

@@ -46,9 +46,8 @@ in1 = 11
 
 in2 = 9
 
-while True:
-    m = Motor(pwm,standby,in1,in2)
-    m.motorForward()
+m = Motor(pwm, standby, in1, in2)
+m.motorStop()
 
 
 
