@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 
+GPIO.setwarnings(False)
 # Set up the GPIO pins
 class Stepper:
     def __init__(self) -> None:
@@ -36,10 +37,10 @@ class Stepper:
 # Example usage
 s = Stepper()
 
-s.step_motor(1, 60, 0.001)
+s.step_motor(1, 60)
 time.sleep(3)
-s.step_motor(0,60, 0.001)
+s.step_motor(0,60)
 time.sleep(1)
-s.step_motor(1,360,0.001)
+s.step_motor(1,360)
 # # Clean up the GPIO pins
 GPIO.cleanup()

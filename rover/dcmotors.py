@@ -47,6 +47,9 @@ in1 = 11
 in2 = 9
 
 m = Motor(pwm, standby, in1, in2)
+
+m.motorForward()
+time.sleep(2)
 m.motorStop()
 
 

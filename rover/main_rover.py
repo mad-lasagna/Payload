@@ -90,7 +90,7 @@ def startOnceLanded(forward: bool):
         motor.motorForward()
     else:
         motor.motorBackward()
-    time.sleep(15)
+    time.sleep(2)
     motor.motorStop()
     time.sleep(1)
     # servoLeveling.set_straight()
@@ -100,7 +100,7 @@ def startOnceLanded(forward: bool):
     #     servoLeveling.level(az,tresh1,tresh2)
     time.sleep(1)
     GPIO.cleanup()
-    startOnceUpright()
+    #startOnceUpright()
 
 def startFromLaunch():
     mpu.landingDetection()
