@@ -49,9 +49,10 @@ def Commands(command):
 
 
 def callCommands(sentCommands):
-    for i in sentCommands:
+    for i in range(len(sentCommands)):
         Commands(sentCommands[i])
         time.sleep(2)
+    exit()
 
 def startOnceUpright():
     sub.subprocess()
@@ -60,11 +61,18 @@ def startOnceUpright():
         f = open("output.txt", 'r')
         lines = f.readlines()
         found = False
+        count = 0
         for line in lines:
             if found:
                 x = (line[line.find(".X/'") + 4:line.find("_")])
                 sent_commands = x.split()
                 print(sent_commands)
+                break
+            time.sleep(1)
+            count += 1
+            if count >= 120:
+                sent_commands = ["C3", "A1", "D4", "C3", "E5", "A1", "G7", "C3", "H8", "A1", "F6", "C3"]
+                break
             if "KQ4CTL-6" in line:
                 found = True
                 EMPTY = False
@@ -78,21 +86,26 @@ def startOnceLanded(forward: bool):
         motor.motorForward()
     else:
         motor.motorBackward()
-    time.sleep(20)
+    time.sleep(15)
     motor.motorStop()
     time.sleep(1)
     servoLeveling.set_straight()
     #add any other code to set straight
+    servoLeveling.level(az,tresh1,tresh2)
     while servoLeveling.leveled == False:
         servoLeveling.level(az,tresh1,tresh2)
     time.sleep(1)
     GPIO.cleanup()
     startOnceUpright()
 
-def startFromLounch():
+def startFromLaunch():
     mpu.landingDetection()
     if mpu.LANDED == True:
         time.sleep(5)
         startOnceLanded(mpu.checkTilt)
 
     
+def start():
+    startFromLaunch()
+
+start()
